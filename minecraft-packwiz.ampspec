@@ -61,9 +61,7 @@
       "UpdateSource": "CreateDirectory",
       "UpdateStageName": "Packwiz Directory Creation",
       "UpdateSourcePlatform": "All",
-      "UpdateSourceArgs": "{{$FullBaseDir}}packwiz-installer",
-      "UpdateSourceConditionSetting": "UsePackwiz",
-      "UpdateSourceConditionValue": "true"
+      "UpdateSourceArgs": "{{$FullBaseDir}}packwiz-installer"
     },
     {
       "UpdateSource": "FetchURL",
@@ -72,9 +70,7 @@
       "UpdateSourceData": "{{PackwizInstallerVersion.downloadUrl}}",
       "UpdateSourceArgs": "packwiz-installer.jar",
       "UpdateSourceTarget": "{{$FullBaseDir}}packwiz-installer/",
-      "OverwriteExistingFiles": true,
-      "UpdateSourceConditionSetting": "UsePackwiz",
-      "UpdateSourceConditionValue": "true"
+      "OverwriteExistingFiles": true
     }
   ],
   "PreStartStages": [
@@ -84,9 +80,7 @@
       "UpdateSourcePlatform": "Linux",
       "UpdateSourceData": "/bin/bash",
       "UpdateSourceArgs": "-c \"cd \\\"{{$FullBaseDir}}\\\" && J=\\\"{{JavaPath}}\\\" && { [ -x \\\"$J\\\" ] || J=java; } && \\\"$J\\\" -cp packwiz-installer/packwiz-installer.jar link.infra.packwiz.installer.Main -g -s server --pack-folder . \\\"{{PackwizUrl}}\\\"\"",
-      "SkipOnFailure": false,
-      "UpdateSourceConditionSetting": "UsePackwiz",
-      "UpdateSourceConditionValue": "true"
+      "SkipOnFailure": false
     },
     {
       "UpdateSource": "Executable",
@@ -94,9 +88,7 @@
       "UpdateSourcePlatform": "Windows",
       "UpdateSourceData": "cmd.exe",
       "UpdateSourceArgs": "/C cd /d \"{{$FullBaseDir}}\" && \"{{JavaPath}}\" -cp packwiz-installer/packwiz-installer.jar link.infra.packwiz.installer.Main -g -s server --pack-folder . \"{{PackwizUrl}}\"",
-      "SkipOnFailure": false,
-      "UpdateSourceConditionSetting": "UsePackwiz",
-      "UpdateSourceConditionValue": "true"
+      "SkipOnFailure": false
     }
   ],
   "PortRequirements": [
@@ -190,16 +182,6 @@
       "IncludeInConfigFile": false
     },
     {
-      "FieldName": "UsePackwiz",
-      "DefaultValue": "false",
-      "Category": "category.packwiz:extension",
-      "DisplayName": "setting.UsePackwiz.name",
-      "Description": "setting.UsePackwiz.desc",
-      "Keywords": "packwiz,modpack,pack,mods",
-      "InputType": "checkbox",
-      "Order": 1
-    },
-    {
       "FieldName": "PackwizUrl",
       "Required": true,
       "Category": "category.packwiz:extension",
@@ -207,10 +189,8 @@
       "Description": "setting.PackwizUrl.desc",
       "Keywords": "packwiz,pack.toml,url,modpack",
       "InputType": "text",
-      "Order": 2,
-      "Placeholder": "https://example.com/mypack/pack.toml",
-      "ConditionSetting": "UsePackwiz",
-      "ConditionValue": "true"
+      "Order": 1,
+      "Placeholder": "https://example.com/mypack/pack.toml"
     },
     {
       "FieldName": "PackwizInstallerVersion",
@@ -221,10 +201,8 @@
       "Description": "setting.PackwizInstallerVersion.desc",
       "Keywords": "packwiz,installer,version",
       "InputType": "enum",
-      "Order": 3,
-      "ValueSourceId": "packwiz.installer",
-      "ConditionSetting": "UsePackwiz",
-      "ConditionValue": "true"
+      "Order": 2,
+      "ValueSourceId": "packwiz.installer"
     },
     {
       "FieldName": "JavaVersion",
@@ -1331,10 +1309,8 @@
       "event.serverLagging.param.TicksSkipped.name": "Ticks skipped",
       "event.serverLagging.param.TicksSkipped.desc": "How many turns of the world the server had to skip to catch up.",
       "category.packwiz": "Packwiz",
-      "setting.UsePackwiz.name": "Install a packwiz modpack",
-      "setting.UsePackwiz.desc": "Installs and updates a packwiz modpack from its pack.toml link every time the server starts. Only server-side mods are installed. The pack needs the matching Minecraft version, and a modded pack also needs its mod loader",
       "setting.PackwizUrl.name": "Pack URL",
-      "setting.PackwizUrl.desc": "The link to the pack.toml file of the packwiz modpack, for example https://example.com/mypack/pack.toml",
+      "setting.PackwizUrl.desc": "The link to the pack.toml file of the packwiz modpack, for example https://example.com/mypack/pack.toml. The pack is installed and updated every time the server starts, and only its server-side mods are installed. Choose the Minecraft version the pack is made for",
       "setting.PackwizInstallerVersion.name": "Packwiz installer version",
       "setting.PackwizInstallerVersion.desc": "Which packwiz-installer version to download. Latest is recommended"
     },
